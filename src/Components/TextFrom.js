@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function TextFrom(props) {
-  const [text, setText] = useState("Enter the Text here");
+  const [text, setText] = useState("");
   const handleUpperCase = () => {
     const newText = text.trim().toUpperCase();
     setText((prevText) => newText);
@@ -11,6 +11,10 @@ export default function TextFrom(props) {
     const newText = text.trim().toLowerCase();
     setText((prevText) => newText);
   };
+
+  const handleClear = () => {
+    setText(prevText => '');
+  }
 
 
   const handleOnChange = (event) => {
@@ -35,9 +39,12 @@ export default function TextFrom(props) {
         <button className="btn btn-primary mx-2" onClick={handleLowerCase}>
           Convert to LowerCase
         </button>
+        <button className="btn btn-primary mx-2" onClick={handleClear}>
+          Clear Text
+        </button>
       </div>
       <div className='containter my-3'>
-        <h1>Your Text Summary</h1>
+        <h2>Your Text Summary</h2>
         <p> {text.split(" ").length} words And {text.length} chareacters.</p>
         <h2>Preview</h2>
         <p>{text}</p>
