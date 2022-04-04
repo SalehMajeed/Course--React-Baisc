@@ -13,16 +13,30 @@ export default function TextFrom(props) {
   };
 
   const handleClear = () => {
-    setText(prevText => '');
-  }
-
+    setText((prevText) => "");
+  };
 
   const handleOnChange = (event) => {
     setText((prevText) => event.target.value);
   };
+
+  const handleCopy = () => {
+    const text = document.getElementById("myBox");
+    text.select();
+    navigator.clipboard.writeText(text.value);
+  };
+
+  const handleExtraSpace = () => {
+    const newText = text.split(/[ ]+/);
+    setText(newText.join(" "));
+  };
+
   return (
     <>
-      <div className="containter">
+      <div
+        className="containter"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <textarea
@@ -31,6 +45,10 @@ export default function TextFrom(props) {
             rows="8"
             value={text}
             onChange={handleOnChange}
+            style={{
+              backgroundColor: props.mode === "dark" ? "grey" : "white",
+              color: props.mode === "dark" ? "white" : "#042743",
+            }}
           ></textarea>
         </div>
         <button className="btn btn-primary mx-2" onClick={handleUpperCase}>
@@ -42,10 +60,22 @@ export default function TextFrom(props) {
         <button className="btn btn-primary mx-2" onClick={handleClear}>
           Clear Text
         </button>
+        <button className="btn btn-primary mx-2" onClick={handleCopy}>
+          Copy Text
+        </button>
+        <button className="btn btn-primary mx-2" onClick={handleExtraSpace}>
+          Remove Extra Space
+        </button>
       </div>
-      <div className='containter my-3'>
+      <div
+        className="containter my-3"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h2>Your Text Summary</h2>
-        <p> {text.split(" ").length} words And {text.length} chareacters.</p>
+        <p>
+          {" "}
+          {text.split(" ").length} words And {text.length} characters.
+        </p>
         <h2>Preview</h2>
         <p>{text}</p>
       </div>
